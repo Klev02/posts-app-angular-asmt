@@ -1,1 +1,1 @@
-export const storeConstant = { reducers: { posts: 'posts' } };
+export const storeConstant = { reducers: { posts: 'postsState' } };

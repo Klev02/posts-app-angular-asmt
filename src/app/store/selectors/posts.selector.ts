@@ -1,13 +1,12 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { storeConstant } from '../store.constant';
-import { PostsState } from '../states/posts.state';
 import { Post } from '../../interface/post';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ApiState } from '../../interface/api-state';
 
-const selectPostsApiState = createSelector(
+export const selectPostsApiState = createSelector(
   createFeatureSelector(storeConstant.reducers.posts),
-  (state: PostsState): ApiState<Post[]> => state.posts
+  (state: ApiState<Post[]>): ApiState<Post[]> => state
 );
 
 export const selectPosts = createSelector(

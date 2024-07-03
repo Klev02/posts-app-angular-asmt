@@ -1,10 +1,9 @@
-import { PostsState } from './posts.state';
+import { ApiState } from '../../interface/api-state';
+import { Post } from '../../interface/post';
 
-export const postsInitialState: PostsState = {
-  posts: {
-    data: [],
-    isLoading: false,
-    error: null,
-    hasLoaded: false,
-  },
+export const postsInitialState: ApiState<Post[]> = {
+  data: [],
+  isLoading: false,
+  error: null,
+  hasLoaded: false,
 };
