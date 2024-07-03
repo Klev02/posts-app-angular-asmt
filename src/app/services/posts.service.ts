@@ -5,9 +5,10 @@ import { Post } from '../interface/post';
 
 @Injectable({ providedIn: 'root' })
 export class PostsService {
+  postApiUrl = 'https://jsonplaceholder.typicode.com/posts';
   constructor(private readonly http: HttpClient) {}
 
   getPosts(): Observable<Post[]> {
-    return this.http.get<Post[]>('https://jsonplaceholder.typicode.com/posts');
+    return this.http.get<Post[]>(this.postApiUrl);
   }
 }
