@@ -1,4 +1,9 @@
 <p>Selected Post ID: {{ selectedPost?.id }}</p>
 <div class="post-list-container">
-    <app-post *ngFor="let post of posts$ | async" [post]="post" (clickOnPost)="onSetSelectedPost($event)"></app-post>
+    <app-post 
+        *ngFor="let post of posts$ | async" 
+        [post]="post" 
+        [isActive]="selectedPost?.id === post.id" 
+        (clickOnPost)="onSetSelectedPost($event)">
+    </app-post>
 </div>
