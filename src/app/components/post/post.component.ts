@@ -1,4 +1,10 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+} from '@angular/core';
 import { Post } from '../../interface/post';
 
 @Component({
@@ -12,4 +18,10 @@ import { Post } from '../../interface/post';
 export class PostComponent {
   @Input()
   post!: Post;
+
+  @Output() clickOnPost: EventEmitter<Post> = new EventEmitter<Post>();
+
+  onPostClick(): void {
+    this.clickOnPost.emit(this.post);
+  }
 }

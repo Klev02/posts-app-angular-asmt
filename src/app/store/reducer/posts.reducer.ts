@@ -3,6 +3,7 @@ import {
   fetchPosts,
   fetchPostsFailed,
   fetchPostsSucceeded,
+  setActivePostId,
 } from '../actions/posts.action';
 import { postsInitialState } from '../states/posts-initial.state';
 
@@ -10,22 +11,33 @@ export const postsReducer = createReducer(
   postsInitialState,
   on(fetchPosts, (state) => ({
     ...state,
-    data: [],
-    isLoading: true,
-    error: null,
-    hasLoaded: false,
+    posts: {
+      data: [],
+      isLoading: true,
+      error: null,
+      hasLoaded: false,
+    },
   })),
-  on(fetchPostsSucceeded, (_, payload) => ({
-    data: payload.posts,
-    isLoading: false,
-    hasLoaded: true,
-    error: null,
+  on(fetchPostsSucceeded, (state, payload) => ({
+    ...state,
+    posts: {
+      data: payload.posts,
+      isLoading: false,
+      hasLoaded: true,
+      error: null,
+    },
   })),
   on(fetchPostsFailed, (state, { error }) => ({
     ...state,
-    data: [],
-    isLoading: false,
-    error,
-    hasLoaded: true,
+    posts: {
+      data: [],
+      isLoading: false,
+      error,
+      hasLoaded: true,
+    },
+  })),
+  on(setActivePostId, (state, { postId }) => ({
+    ...state,
+    activePostId: postId,
   }))
 );

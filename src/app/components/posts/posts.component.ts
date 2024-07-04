@@ -16,6 +16,7 @@ import { PostComponent } from '../post/post.component';
 })
 export class PostsComponent implements OnInit {
   posts$: Observable<Post[]>;
+  selectedPost: Post | null = null;
 
   constructor(private store: Store) {
     this.posts$ = this.store
@@ -25,5 +26,9 @@ export class PostsComponent implements OnInit {
 
   ngOnInit(): void {
     this.store.dispatch(fetchPosts());
+  }
+
+  onSetSelectedPost(selectedPost: Post): void {
+    this.selectedPost = selectedPost;
   }
 }
