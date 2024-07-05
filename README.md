@@ -1,7 +1,8 @@
 
-# PostsAppAngularAsmt
+# Angular assignment
 
-  
+==Here you will find all the information you need, just scroll a bit more :)==
+
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.8.
 
