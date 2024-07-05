@@ -18,7 +18,7 @@ import { Post } from '../../interface/post';
   styleUrl: './post.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PostComponent implements OnChanges {
+export class PostComponent implements OnInit, OnChanges {
   @Input({ required: true })
   post!: Post;
   @Input() isActive: boolean = false;
@@ -29,11 +29,13 @@ export class PostComponent implements OnChanges {
   private postProperties!: string[];
   private currentPopertyIndex!: number;
 
+  ngOnInit(): void {
+    this.postProperties = Object.keys(this.post);
+    this.setToDefault();
+  }
+
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['post']) {
-      this.postProperties = Object.keys(this.post);
-      this.setToDefault();
-    } else if (changes['isActive'] && !this.isActive) {
+    if (changes['isActive'] && !this.isActive) {
       this.setToDefault();
     }
   }

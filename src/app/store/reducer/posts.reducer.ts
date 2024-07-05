@@ -3,7 +3,6 @@ import {
   fetchPosts,
   fetchPostsFailed,
   fetchPostsSucceeded,
-  setActivePostId,
 } from '../actions/posts.action';
 import { postsInitialState } from '../states/posts-initial.state';
 
@@ -35,9 +34,5 @@ export const postsReducer = createReducer(
       error,
       hasLoaded: true,
     },
-  })),
-  on(setActivePostId, (state, { postId }) => ({
-    ...state,
-    activePostId: postId,
   }))
 );

@@ -3,5 +3,4 @@ import { Post } from './post';
 
 export interface PostsState {
   posts: ApiState<Post[]>;
-  activePostId: number | null;
 }

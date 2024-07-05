@@ -13,8 +13,3 @@ export const fetchPostsFailed = createAction(
   '[Posts] FETCH POSTS FAIL',
   props<{ error: HttpErrorResponse | null }>()
 );
-
-export const setActivePostId = createAction(
-  '[Posts] SET ACTIVE POST ID',
-  props<{ postId: number }>()
-);

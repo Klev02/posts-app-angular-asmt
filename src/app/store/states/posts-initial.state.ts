@@ -9,5 +9,4 @@ export const postsInitialState: PostsState = {
     error: null,
     hasLoaded: false,
   },
-  activePostId: null,
 };

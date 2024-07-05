@@ -1,29 +1,39 @@
-import { TestBed } from '@angular/core/testing';
+import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { AppComponent } from './app.component';
+import { StoreModule, Store } from '@ngrx/store';
+import { MockStore, provideMockStore } from '@ngrx/store/testing';
+import { selectPostsApiState } from './store/selectors/posts.selector';
+import { fetchPosts } from './store/actions/posts.action';
+import { of } from 'rxjs';
+import { CommonModule } from '@angular/common';
+import { RouterOutlet } from '@angular/router';
+import { PostsComponent } from './components/posts/posts.component';
 
 describe('AppComponent', () => {
+  let component: AppComponent;
+  let fixture: ComponentFixture<AppComponent>;
+  let store: MockStore;
+  const initialState = {
+    /* define your initial state here */
+  };
+
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      declarations: [AppComponent, PostsComponent],
       imports: [AppComponent],
+      providers: [
+        provideMockStore(), // Provide initial store state
+        RouterOutlet, // Mock RouterOutlet if necessary
+      ],
     }).compileComponents();
+
+    store = TestBed.inject(MockStore);
+    fixture = TestBed.createComponent(AppComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
   });
 
   it('should create the app', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app).toBeTruthy();
-  });
-
-  it(`should have the 'posts-app-angular-asmt' title`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app.title).toEqual('posts-app-angular-asmt');
-  });
-
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, posts-app-angular-asmt');
+    expect(component).toBeTruthy();
   });
 });

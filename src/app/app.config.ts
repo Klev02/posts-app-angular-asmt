@@ -7,7 +7,7 @@ import { postsReducer } from './store/reducer/posts.reducer';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
 import { storeConstant } from './store/store.constant';
 import { provideEffects } from '@ngrx/effects';
-import { PostsEffect } from './store/effects/posts.effects';
+import { PostsEffect } from './store/effects/posts.effect';
 import { provideHttpClient } from '@angular/common/http';
 
 export const appConfig: ApplicationConfig = {
