@@ -73,3 +73,4 @@ XSS attack - By opening it, client computer will run the script, and could cause
 	- Caching (Service Workers or simply HTTP cache)
 	- Load small things first, use loading spinner/skeleton to show some result to the user
 	- FIRST: Measure (Core Web Vitals) metrics, and THEN act accordingly!!!!!
+    - Be carefull with heavy calculations (usually should be done by backend) and huge amount of animations 
