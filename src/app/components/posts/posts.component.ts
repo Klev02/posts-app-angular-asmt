@@ -31,4 +31,8 @@ export class PostsComponent implements OnInit {
   onSetSelectedPost(selectedPost: Post): void {
     this.selectedPost = selectedPost;
   }
+
+  trackByFn(index: number, post: Post) {
+    return post.id;
+  }
 }

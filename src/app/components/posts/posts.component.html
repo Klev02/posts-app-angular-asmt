@@ -5,7 +5,7 @@
 
 <div class="post-list-container">
     <app-post 
-        *ngFor="let post of posts$ | async" 
+        *ngFor="let post of posts$ | async; trackBy: trackByFn" 
         [post]="post" 
         [isActive]="selectedPost?.id === post.id" 
         (clickOnPost)="onSetSelectedPost($event)">
