@@ -9,11 +9,12 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { Post } from '../../interface/post';
+import { NgClass, NgFor } from '@angular/common';
 
 @Component({
   selector: 'app-post',
   standalone: true,
-  imports: [],
+  imports: [NgFor, NgClass],
   templateUrl: './post.component.html',
   styleUrl: './post.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -24,36 +25,39 @@ export class PostComponent implements OnInit, OnChanges {
   @Input() isActive: boolean = false;
   @Output() clickOnPost: EventEmitter<Post> = new EventEmitter<Post>();
 
-  postContent: any;
+  postKeys: (keyof Post)[] = [];
 
-  private postProperties!: string[];
-  private currentPopertyIndex!: number;
+  private currentPostKeyIndex!: number;
 
   ngOnInit(): void {
-    this.postProperties = Object.keys(this.post);
+    this.postKeys = Object.keys(this.post) as (keyof Post)[];
     this.setToDefault();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['isActive'] && !this.isActive) {
+    if (
+      changes['isActive'] &&
+      !changes['isActive'].isFirstChange() &&
+      !this.isActive
+    ) {
       this.setToDefault();
     }
   }
 
-  onPostClick(): void {
-    this.showNextPostProperty();
+  onPostClick(index: number): void {
+    if (this.currentPostKeyIndex === index) {
+      this.currentPostKeyIndex =
+        (this.currentPostKeyIndex + 1) % this.postKeys.length;
+    }
+
     this.clickOnPost.emit(this.post);
   }
 
-  private showNextPostProperty(): void {
-    this.currentPopertyIndex =
-      (this.currentPopertyIndex + 1) % this.postProperties.length;
-    this.postContent =
-      this.post[this.postProperties[this.currentPopertyIndex] as keyof Post];
+  isCurrentCard(index: number): boolean {
+    return this.currentPostKeyIndex === index;
   }
 
   private setToDefault(): void {
-    this.postContent = this.post.title;
-    this.currentPopertyIndex = 0;
+    this.currentPostKeyIndex = this.postKeys.indexOf('title');
   }
 }

@@ -7,6 +7,7 @@ import { selectPostsApiState } from '../../store/selectors/posts.selector';
 import { PostsComponent } from './posts.component';
 import { PostComponent } from '../post/post.component';
 import { PostsState } from '../../interface/posts-state';
+import { MockComponent } from 'ng-mocks';
 
 describe('PostsComponent', () => {
   let component: PostsComponent;
@@ -26,7 +27,7 @@ describe('PostsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [PostsComponent, PostComponent],
+      imports: [PostsComponent, MockComponent(PostComponent)],
       providers: [
         provideMockStore({
           selectors: [

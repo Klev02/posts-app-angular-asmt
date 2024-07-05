@@ -1,5 +1,14 @@
+.posts-header {
+    color: #ffffff;
+    background-color: #43435a;
+    padding: 15px;
+    margin-bottom: 60px;
+    border-radius: 20px;
+    text-align: center;
+}
+
 .post-list-container  {
     display: grid;
     grid-template-columns: repeat(10, 1fr);
-    gap: 10px;
+    gap: 20px;
 }

@@ -1,17 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-import { Store } from '@ngrx/store';
-import { Observable, map } from 'rxjs';
-import { Post } from './interface/post';
-import { selectPostsApiState } from './store/selectors/posts.selector';
-import { fetchPosts } from './store/actions/posts.action';
-import { CommonModule } from '@angular/common';
+import { Component } from '@angular/core';
 import { PostsComponent } from './components/posts/posts.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, PostsComponent],
+  imports: [PostsComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })

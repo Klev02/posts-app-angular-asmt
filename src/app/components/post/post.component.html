@@ -1,3 +1,14 @@
-<div class="post-card" (click)="onPostClick()">
-    <p>{{ postContent }}</p>
-</div>
+<div class="post-container">
+    <div
+      class="post-card"
+      *ngFor="let postKey of postKeys; let i = index"
+      [ngClass]="isCurrentCard(i) ? 'post-card--current' : 'post-card--out'"
+      (click)="onPostClick(i)"
+    >
+        <div class="post-card__content">
+            <p class="post-text">
+                {{ post[postKey] }}
+            </p>
+        </div>
+    </div>
+  </div>

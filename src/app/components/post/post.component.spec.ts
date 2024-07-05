@@ -1,13 +1,19 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { Component } from '@angular/core';
-import { By } from '@angular/platform-browser';
 import { PostComponent } from './post.component';
 import { Post } from '../../interface/post';
+import { EventEmitter } from '@angular/core';
+import { SimpleChanges } from '@angular/core';
 
 describe('PostComponent', () => {
   let component: PostComponent;
   let fixture: ComponentFixture<PostComponent>;
-  let mockPost: Post;
+
+  const mockPost: Post = {
+    id: 1,
+    title: 'mock title 1',
+    body: 'mock body 1',
+    userId: 2,
+  };
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -16,48 +22,61 @@ describe('PostComponent', () => {
 
     fixture = TestBed.createComponent(PostComponent);
     component = fixture.componentInstance;
-
-    mockPost = {
-      userId: 1,
-      id: 1,
-      title: 'mock title',
-      body: 'mock body',
-    };
-
     component.post = mockPost;
     fixture.detectChanges();
   });
 
-  it('should display the title by default', () => {
-    const postElement: HTMLElement = fixture.debugElement.query(
-      By.css('.post-card')
-    ).nativeElement;
-    expect(postElement.textContent).toContain(mockPost.title);
+  it('should create', () => {
+    expect(component).toBeTruthy();
   });
 
-  it('should rotate through the properties on click', () => {
-    component.onPostClick();
-
-    expect(component.postContent).toEqual(mockPost.userId); // userId
+  it('should initialize postKeys', () => {
+    component.ngOnInit();
+    expect(component.postKeys).toEqual(['id', 'title', 'body', 'userId']);
   });
 
-  it('should reset display content when isActive changes to false', () => {
-    component.isActive = true;
-    fixture.detectChanges();
-    component.onPostClick();
-    fixture.detectChanges();
-    expect(component.postContent).toBe(1);
-
-    component.isActive = false;
-    fixture.detectChanges();
-    expect(component.postContent).toBe(mockPost.title);
+  it('should set "title" as currentPostKeyIndex on ngOnInit', () => {
+    component.ngOnInit();
+    expect(component['currentPostKeyIndex']).toBe(1);
   });
 
-  it('should emit the post when clicked', () => {
-    const clickOnPOstEmitSPy = jest.spyOn(component.clickOnPost, 'emit');
+  it('should set currentPostKeyIndex to default on isActive change to false', () => {
+    const changes: SimpleChanges = {
+      isActive: {
+        previousValue: true,
+        currentValue: false,
+        firstChange: false,
+        isFirstChange: () => false,
+      },
+    };
 
-    component.onPostClick();
+    component.onPostClick(1);
 
-    expect(clickOnPOstEmitSPy).toHaveBeenCalledWith(mockPost);
+    expect(component['currentPostKeyIndex']).not.toBe(1);
+
+    component.ngOnChanges(changes);
+
+    expect(component['currentPostKeyIndex']).toBe(1);
+  });
+
+  it('should emit clickOnPost event on onPostClick', () => {
+    const emitSpy = jest.spyOn(component.clickOnPost, 'emit');
+
+    component.onPostClick(1);
+
+    expect(emitSpy).toHaveBeenCalledWith(mockPost);
+  });
+
+  it('should change currentPostKeyIndex on onPostClick if index matches', () => {
+    component.onPostClick(1);
+
+    expect(component['currentPostKeyIndex']).toBe(2);
+  });
+
+  it('should identify current card correctly', () => {
+    component.ngOnInit();
+
+    expect(component.isCurrentCard(1)).toBe(true);
+    expect(component.isCurrentCard(0)).toBe(false);
   });
 });
